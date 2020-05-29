@@ -1,8 +1,11 @@
-# x86/ioperm: fix a memory leak bug
+# x86/ioperm: Prevent a memory leak when fork fails
 
 * Bug discovered: 5/21/2020
 * Patch Submitted to LKML: 5/24/2020
 * Reviewed: 5/28/2020
+* Merged into x86/urgent: 5/28/2020
+
+Link: https://lkml.kernel.org/r/20200524162742.253727-1-jaytlang@mit.edu
 
 ## Description
 
@@ -29,6 +32,10 @@ to the io_bitmap is trashed, the child still holds a reference and thus
 the structure will never be freed.
 
 Fix this by tweaking io_bitmap_exit() and its subroutines to accept a
-task_struct argument which to operate on. This may not be the most elegant
-solution, but it mitigates the trigger described above on an x86_64 kernel.
+task_struct argument which to operate on.
 
+Fixes: ea5f1cd7ab49 ("x86/ioperm: Remove bitmap if all permissions dropped")
+Signed-off-by: Jay Lang <jaytlang@mit.edu>
+Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
+Cc: stable#@vger.kernel.org
+Link: https://lkml.kernel.org/r/20200524162742.253727-1-jaytlang@mit.edu
