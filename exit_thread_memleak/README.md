@@ -5,8 +5,6 @@
 * Reviewed: 5/28/2020
 * Merged into x86/urgent: 5/28/2020
 
-Link: https://lkml.kernel.org/r/20200524162742.253727-1-jaytlang@mit.edu
-
 ## Description
 
 In the copy_process() routine called by _do_fork(), failure to allocate
